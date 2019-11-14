@@ -1,0 +1,10 @@
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\bin\Debug\V.ShopWithInventory.exe.config
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\bin\Debug\V.ShopWithInventory.exe
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\bin\Debug\V.ShopWithInventory.pdb
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.csprojAssemblyReference.cache
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.Properties.Resources.resources
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.UI.MainForm.resources
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.csproj.GenerateResource.cache
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.csproj.CoreCompileInputs.cache
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.exe
+D:\Student\DotNET\V.ShopWithInventory\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.pdb
