@@ -19,6 +19,7 @@ namespace V.ShopWithInventory
             cnn.Open();
             MessageBox.Show("Connection Open  !");
             cnn.Close();
+
         }
     }
 }
