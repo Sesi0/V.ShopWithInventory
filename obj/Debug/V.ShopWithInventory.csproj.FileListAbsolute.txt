@@ -24,3 +24,16 @@ D:\BobbyTeo\KursovaShop\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.Proper
 D:\BobbyTeo\KursovaShop\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.UI.LoginForm.resources
 D:\BobbyTeo\KursovaShop\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.UI.MainForm.resources
 D:\BobbyTeo\KursovaShop\V.ShopWithInventory\obj\Debug\V.ShopWithInventory.csproj.GenerateResource.Cache
+D:\TSP Project\bin\Debug\V.ShopWithInventory.exe.config
+D:\TSP Project\bin\Debug\V.ShopWithInventory.exe
+D:\TSP Project\bin\Debug\V.ShopWithInventory.pdb
+D:\TSP Project\obj\Debug\V.ShopWithInventory.csprojAssemblyReference.cache
+D:\TSP Project\obj\Debug\V.ShopWithInventory.clientDetails.resources
+D:\TSP Project\obj\Debug\V.ShopWithInventory.Properties.Resources.resources
+D:\TSP Project\obj\Debug\V.ShopWithInventory.UI.AboutInfoForm.resources
+D:\TSP Project\obj\Debug\V.ShopWithInventory.UI.LoginForm.resources
+D:\TSP Project\obj\Debug\V.ShopWithInventory.UI.MainForm.resources
+D:\TSP Project\obj\Debug\V.ShopWithInventory.csproj.GenerateResource.cache
+D:\TSP Project\obj\Debug\V.ShopWithInventory.exe
+D:\TSP Project\obj\Debug\V.ShopWithInventory.pdb
+D:\TSP Project\obj\Debug\V.ShopWithInventory.ShopClientView.resources

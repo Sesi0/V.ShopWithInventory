@@ -27,5 +27,17 @@ namespace V.ShopWithInventory.UI
             AboutInfoForm aboutinfoForm = new AboutInfoForm();
             aboutinfoForm.Show();
         }
+
+        private void clientLoginButton_Click(object sender, EventArgs e)
+        {
+            clientDetails client_details = new clientDetails();
+            client_details.Show();
+        }
+
+        private void ownerLoginButton_Click(object sender, EventArgs e)
+        {
+            ShopOwnerView shop_owner_view = new ShopOwnerView();
+            shop_owner_view.Show();
+        }
     }
 }

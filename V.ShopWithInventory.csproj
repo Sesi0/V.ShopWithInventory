@@ -46,10 +46,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clientDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientDetails.Designer.cs">
+      <DependentUpon>clientDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBOperations.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Sale.cs" />
+    <Compile Include="ShopClientView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShopClientView.Designer.cs">
+      <DependentUpon>ShopClientView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShopOwnerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShopOwnerView.Designer.cs">
+      <DependentUpon>ShopOwnerView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AboutInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +88,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="clientDetails.resx">
+      <DependentUpon>clientDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -79,6 +100,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ShopClientView.resx">
+      <DependentUpon>ShopClientView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AboutInfoForm.resx">
       <DependentUpon>AboutInfoForm.cs</DependentUpon>
     </EmbeddedResource>
