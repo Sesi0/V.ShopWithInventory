@@ -18,6 +18,7 @@ namespace V.ShopWithInventory
             this.connection = new SqlConnection(connectionString);
         }
 
+        #region Clients operations
         /// <summary>
         /// Добавяне на клиент към базата данни
         /// </summary>
@@ -43,7 +44,7 @@ namespace V.ShopWithInventory
             {
                 this.connection.Open();
 
-                
+
                 // Подсигоряваме се десетичния разделител да е с точка, не запетая
                 sql = $"INSERT INTO clients (Name, Balance) VALUES('{name}', '{balance.ToString("N2", CultureInfo.InvariantCulture)}');";
 
@@ -195,7 +196,7 @@ namespace V.ShopWithInventory
                     }
 
                     // Новата стойност на баланса
-                    sql += $"Balance = {balance}";
+                    sql += $"Balance = {balance.ToString("N2", CultureInfo.InvariantCulture)}";
                 }
 
                 // IDто на клиента, който ще се променя
@@ -217,7 +218,6 @@ namespace V.ShopWithInventory
                 this.connection.Close();
             }
         }
-
 
         /// <summary>
         /// Всички клиенти от базата данни
@@ -262,7 +262,7 @@ namespace V.ShopWithInventory
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "(DBOperations -> GetClientByName)");
+                MessageBox.Show(ex.Message + "(DBOperations -> GetClients)");
             }
             finally
             {
@@ -272,5 +272,289 @@ namespace V.ShopWithInventory
             return clients;
         }
 
+        #endregion
+
+        #region Products operations
+
+        /// <summary>
+        /// Добавяне на продукт към базата данни
+        /// </summary>
+        /// <param name="name">Име на продукт</param>
+        /// <param name="priceForEach">Цена за бройка</param>
+        /// <param name="quantityInStock">Количество</param>
+        public void AddProduct(string name, decimal priceForEach, int quantityInStock)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException("name is null or empty!");
+            }
+
+            if (priceForEach <= 0)
+            {
+                throw new ArgumentNullException("priceForEach cannot be lower than or 0!");
+            }
+
+            if (quantityInStock < 0)
+            {
+                throw new ArgumentNullException("quantity cannot be lower than 0!");
+            }
+
+            if (this.CheckIfProductExists(name))
+            {
+                throw new ArgumentException("Product with that name already exists!");
+            }
+
+            SqlCommand command;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            string sql = "";
+
+            try
+            {
+                this.connection.Open();
+
+                // Подсигоряваме се десетичния разделител да е с точка, не запетая
+                sql = $"INSERT INTO products (Name, PriceForEach, QuantityInStock) VALUES('{name}', '{priceForEach.ToString("N2", CultureInfo.InvariantCulture)}', '{quantityInStock}');";
+
+                command = new SqlCommand(sql, this.connection);
+
+                adapter.InsertCommand = command;
+                adapter.InsertCommand.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> AddProduct)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Вземи продукт по име
+        /// </summary>
+        /// <param name="name">Името на продукт, който се търси</param>
+        /// <returns>Продукта, ако не го намери връща <see cref="null"/></returns>
+        public Product GetProductByName(string name)
+        {
+            SqlCommand command;
+            SqlDataReader reader;
+            string sql = "";
+            Product product = null;
+
+            try
+            {
+                this.connection.Open();
+
+                sql = $"SELECT * FROM products WHERE Name = '{name}';";
+
+                command = new SqlCommand(sql, this.connection);
+                reader = command.ExecuteReader();
+
+                // Четем само първия намерен продукт с това име
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    product = new Product
+                    {
+                        ID = int.Parse(reader.GetValue(0).ToString()),
+                        Name = reader.GetValue(1).ToString(),
+                        PriceForEach = decimal.Parse(reader.GetValue(2).ToString()),
+                        QuantityInStock = int.Parse(reader.GetValue(3).ToString())
+                    };
+
+                    reader.Close();
+                }
+
+                command.Dispose();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> GetProductByName)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+
+            return product;
+        }
+
+        /// <summary>
+        /// Проверява дали продукта с подаденото име съществува
+        /// </summary>
+        /// <param name="name">Името на продукта, който се търси</param>
+        /// <returns><see cref="true"/> ако продукта е съществува, <see cref="false"/> ако не съществува</returns>
+        public bool CheckIfProductExists(string name)
+        {
+            return this.GetProductByName(name) != null;
+        }
+
+        /// <summary>
+        /// Изтрива продукт от базата данни
+        /// </summary>
+        /// <param name="productID">ID на клиента</param>
+        public void DeleteProduct(int productID)
+        {
+            SqlCommand command;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            string sql = "";
+
+            try
+            {
+                this.connection.Open();
+                sql = $"DELETE products WHERE ID = {productID};";
+                command = new SqlCommand(sql, this.connection);
+
+                adapter.DeleteCommand = command;
+                adapter.DeleteCommand.ExecuteNonQuery();
+
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> DeleteProduct)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Промяна на продукт по ID
+        /// </summary>
+        /// <param name="productID">ID на продукта</param>
+        /// <param name="name">Новота стойност на име на продукта ако е null или празно не се променя</param>
+        /// <param name="priceForEach">Новата стойност на цена за бройка на продукта, ако е под 0 не се променя</param>
+        /// <param name="quantityInStock">Новата стойност на количеството на продукта, ако е под 0 не се променя</param>
+        public void UpdateProduct(int productID, string name, decimal priceForEach, int quantityInStock)
+        {
+            if (string.IsNullOrEmpty(name) && priceForEach <= 0 && quantityInStock < 0)
+            {
+                throw new ArgumentNullException("name is null or empty or priceForEach is lower than or zero or quantityInStock is lower than zero!");
+            }
+
+            SqlCommand command;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            string sql = "";
+
+            try
+            {
+                this.connection.Open();
+                sql = "UPDATE products SET ";
+
+                // Ако името е празно или null остава старото
+                if (!string.IsNullOrEmpty(name))
+                {
+                    // Новата стойност на името
+                    sql += $"Name = {name}";
+                }
+
+                // Ако цена за бройка е по-малък от 0 остава старото
+                if (priceForEach >= 0)
+                {
+                    // Ако се променя и името се слага запетая щом ще се променя и бройката
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        sql += ", ";
+                    }
+
+                    // Новата стойност на цена за бройка
+                    sql += $"PriceForEach = {priceForEach.ToString("N2", CultureInfo.InvariantCulture)}";
+                }
+
+                // Ако количеството е по-малъко от 0 остава старото
+                if (quantityInStock > 0)
+                {
+                    // Ако се променя и името или количеството е по-голямо от 0 се слага запетая щом ще се променя и бройката
+                    if (!string.IsNullOrEmpty(name) || priceForEach > 0)
+                    {
+                        sql += ", ";
+                    }
+
+                    // Новата стойност на цена за бройка
+                    sql += $"QuantityInStock = {quantityInStock}";
+                }
+
+                // IDто на продукта, който ще се променя
+                sql += $" WHERE ID = {productID};";
+
+                command = new SqlCommand(sql, this.connection);
+
+                adapter.UpdateCommand = command;
+                adapter.UpdateCommand.ExecuteNonQuery();
+
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> UpdateProduct)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Всички продукти от базата данни
+        /// </summary>
+        /// <returns>Списък от продукти</returns>
+        public List<Product> GetProducts()
+        {
+            List<Product> products = null;
+            SqlCommand command;
+            SqlDataReader reader;
+            string sql = "";
+
+            try
+            {
+                this.connection.Open();
+
+                sql = $"SELECT * FROM products;";
+
+                command = new SqlCommand(sql, this.connection);
+                reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    products = new List<Product>();
+
+                    while (reader.Read())
+                    {
+                        products.Add(new Product
+                        {
+                            ID = int.Parse(reader.GetValue(0).ToString()),
+                            Name = reader.GetValue(1).ToString(),
+                            PriceForEach = decimal.Parse(reader.GetValue(2).ToString()),
+                            QuantityInStock = int.Parse(reader.GetValue(3).ToString())
+                        });
+                    }
+
+                    reader.Close();
+                }
+
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> GetProducts)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+
+            return products;
+        }
+
+        #endregion
     }
 }

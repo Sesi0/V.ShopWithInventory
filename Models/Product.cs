@@ -12,7 +12,7 @@ namespace V.ShopWithInventory.Models
 
         public string Name { get; set; }
 
-        public double PriceForEach { get; set; }
+        public decimal PriceForEach { get; set; }
 
         public int QuantityInStock { get; set; }
     }
