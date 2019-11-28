@@ -8,6 +8,8 @@ namespace V.ShopWithInventory.Models
 
         public string Name { get; set; }
 
+        public decimal Balance { get; set; }
+
         public List<Sale> Sales { get; set; }
     }
 }
