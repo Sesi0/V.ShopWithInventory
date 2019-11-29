@@ -34,8 +34,7 @@ namespace V.ShopWithInventory.UI
         // Обновяване на данните в таблицата
         private void RefreshProducts()
         {
-            var dbo = new DBOperations();
-            var products = dbo.GetProducts();
+            var products = this.dbo.GetProducts();
 
             if (products == null)
             {

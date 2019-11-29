@@ -46,7 +46,7 @@ namespace V.ShopWithInventory
 
 
                 // Подсигоряваме се десетичния разделител да е с точка, не запетая
-                sql = $"INSERT INTO clients (Name, Balance) VALUES('{name}', '{balance.ToString("N2", CultureInfo.InvariantCulture)}');";
+                sql = $"INSERT INTO clients (Name, Balance) VALUES('{name}', {balance.ToString("N2", CultureInfo.InvariantCulture)});";
 
                 command = new SqlCommand(sql, this.connection);
 
