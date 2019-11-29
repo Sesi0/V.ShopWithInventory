@@ -37,6 +37,11 @@ namespace V.ShopWithInventory.UI
             var dbo = new DBOperations();
             var products = dbo.GetProducts();
 
+            if (products == null)
+            {
+                return;
+            }
+
             this.productsBindingSource.Clear();
 
             foreach (var product in products)
