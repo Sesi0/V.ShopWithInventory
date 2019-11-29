@@ -313,7 +313,7 @@ namespace V.ShopWithInventory
                 this.connection.Open();
 
                 // Подсигоряваме се десетичния разделител да е с точка, не запетая
-                sql = $"INSERT INTO products (Name, PriceForEach, QuantityInStock) VALUES('{name}', '{priceForEach.ToString("N2", CultureInfo.InvariantCulture)}', '{quantityInStock}');";
+                sql = $"INSERT INTO products (Name, PriceForEach, QuantityInStock) VALUES('{name}', {priceForEach.ToString("N2", CultureInfo.InvariantCulture)}, {quantityInStock});";
 
                 command = new SqlCommand(sql, this.connection);
 
@@ -452,7 +452,7 @@ namespace V.ShopWithInventory
                 if (!string.IsNullOrEmpty(name))
                 {
                     // Новата стойност на името
-                    sql += $"Name = {name}";
+                    sql += $"Name = '{name}'";
                 }
 
                 // Ако цена за бройка е по-малък от 0 остава старото
@@ -523,8 +523,6 @@ namespace V.ShopWithInventory
 
                 if (reader.HasRows)
                 {
-                    reader.Read();
-
                     products = new List<Product>();
 
                     while (reader.Read())

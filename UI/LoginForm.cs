@@ -30,14 +30,14 @@ namespace V.ShopWithInventory.UI
 
         private void clientLoginButton_Click(object sender, EventArgs e)
         {
-            clientDetails client_details = new clientDetails();
-            client_details.Show();
+            //clientDetails client_details = new clientDetails();
+            //client_details.Show();
         }
 
         private void ownerLoginButton_Click(object sender, EventArgs e)
         {
-            ShopOwnerView shop_owner_view = new ShopOwnerView();
-            shop_owner_view.Show();
+            ShopOwnerForm shopOwnerForm = new ShopOwnerForm();
+            shopOwnerForm.Show();
         }
     }
 }
