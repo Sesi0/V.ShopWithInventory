@@ -14,7 +14,7 @@ namespace V.ShopWithInventory
     {
         public ShopOwnerView()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
     }
 }
