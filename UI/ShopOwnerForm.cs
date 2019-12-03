@@ -171,5 +171,10 @@ namespace V.ShopWithInventory.UI
             this.productQuantityTextBox.Clear();
             this.addProductButton.Visible = true;
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

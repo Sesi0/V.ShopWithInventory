@@ -30,8 +30,8 @@ namespace V.ShopWithInventory.UI
 
         private void clientLoginButton_Click(object sender, EventArgs e)
         {
-            //clientDetails client_details = new clientDetails();
-            //client_details.Show();
+            ClientEntryForm clientEntryForm = new ClientEntryForm();
+            clientEntryForm.Show();
         }
 
         private void ownerLoginButton_Click(object sender, EventArgs e)
