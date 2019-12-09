@@ -23,7 +23,6 @@ namespace V.ShopWithInventory.UI
             this.productsBindingSource = new BindingSource();
             this.productsBindingSource.DataSource = typeof(Product);
             this.productsDataGridView.DataSource = productsBindingSource;
-
         }
 
         private void ShopOwnerForm_Load(object sender, EventArgs e)
@@ -36,12 +35,12 @@ namespace V.ShopWithInventory.UI
         {
             var products = this.dbo.GetProducts();
 
+            this.productsBindingSource.Clear();
+
             if (products == null)
             {
                 return;
             }
-
-            this.productsBindingSource.Clear();
 
             foreach (var product in products)
             {

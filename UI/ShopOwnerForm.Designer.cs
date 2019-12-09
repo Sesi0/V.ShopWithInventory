@@ -38,7 +38,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.productsDataGridView = new System.Windows.Forms.DataGridView();
             this.editDataGridViewButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.deleteDataGridViewButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -46,10 +45,13 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
+            this.turnOverLabel = new System.Windows.Forms.Label();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceForEachDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantityInStockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.clientsLabel = new System.Windows.Forms.Label();
+            this.salesLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -129,13 +131,6 @@
             this.label6.TabIndex = 8;
             this.label6.Text = "Продажби:";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(91, 356);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(81, 20);
-            this.textBox1.TabIndex = 9;
-            // 
             // productsDataGridView
             // 
             this.productsDataGridView.AllowUserToAddRows = false;
@@ -206,13 +201,21 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(639, 472);
+            this.backButton.Location = new System.Drawing.Point(12, 469);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(75, 23);
             this.backButton.TabIndex = 14;
             this.backButton.Text = "Назад";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // turnOverLabel
+            // 
+            this.turnOverLabel.AutoSize = true;
+            this.turnOverLabel.Location = new System.Drawing.Point(77, 363);
+            this.turnOverLabel.Name = "turnOverLabel";
+            this.turnOverLabel.Size = new System.Drawing.Size(0, 13);
+            this.turnOverLabel.TabIndex = 15;
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -242,17 +245,35 @@
             // 
             this.productBindingSource.DataSource = typeof(V.ShopWithInventory.Models.Product);
             // 
+            // clientsLabel
+            // 
+            this.clientsLabel.AutoSize = true;
+            this.clientsLabel.Location = new System.Drawing.Point(77, 390);
+            this.clientsLabel.Name = "clientsLabel";
+            this.clientsLabel.Size = new System.Drawing.Size(0, 13);
+            this.clientsLabel.TabIndex = 16;
+            // 
+            // salesLabel
+            // 
+            this.salesLabel.AutoSize = true;
+            this.salesLabel.Location = new System.Drawing.Point(77, 418);
+            this.salesLabel.Name = "salesLabel";
+            this.salesLabel.Size = new System.Drawing.Size(0, 13);
+            this.salesLabel.TabIndex = 17;
+            // 
             // ShopOwnerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 568);
+            this.ClientSize = new System.Drawing.Size(752, 508);
+            this.Controls.Add(this.salesLabel);
+            this.Controls.Add(this.clientsLabel);
+            this.Controls.Add(this.turnOverLabel);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.addProductButton);
             this.Controls.Add(this.productsDataGridView);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -283,7 +304,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridView productsDataGridView;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.Button addProductButton;
@@ -295,5 +315,8 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Label turnOverLabel;
+        private System.Windows.Forms.Label clientsLabel;
+        private System.Windows.Forms.Label salesLabel;
     }
 }
