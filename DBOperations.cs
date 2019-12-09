@@ -721,7 +721,7 @@ namespace V.ShopWithInventory
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "(DBOperations -> AddProduct)");
+                MessageBox.Show(ex.Message + "(DBOperations -> MakeSale)");
             }
             finally
             {
