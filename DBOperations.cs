@@ -46,7 +46,7 @@ namespace V.ShopWithInventory
 
 
                 // Подсигоряваме се десетичния разделител да е с точка, не запетая
-                sql = $"INSERT INTO clients (Name, Balance) VALUES('{name}', {balance.ToString("N2", CultureInfo.InvariantCulture)});";
+                sql = $"INSERT INTO clients (Name, Balance) VALUES('{name}', {balance.ToString(CultureInfo.InvariantCulture)});";
 
                 command = new SqlCommand(sql, this.connection);
 
@@ -249,7 +249,7 @@ namespace V.ShopWithInventory
                     }
 
                     // Новата стойност на баланса
-                    sql += $"Balance = {balance.ToString("N2", CultureInfo.InvariantCulture)}";
+                    sql += $"Balance = {balance.ToString(CultureInfo.InvariantCulture)}";
                 }
 
                 // IDто на клиента, който ще се променя
@@ -366,7 +366,7 @@ namespace V.ShopWithInventory
                 this.connection.Open();
 
                 // Подсигоряваме се десетичния разделител да е с точка, не запетая
-                sql = $"INSERT INTO products (Name, PriceForEach, QuantityInStock) VALUES('{name}', {priceForEach.ToString("N2", CultureInfo.InvariantCulture)}, {quantityInStock});";
+                sql = $"INSERT INTO products (Name, PriceForEach, QuantityInStock) VALUES('{name}', {priceForEach.ToString(CultureInfo.InvariantCulture)}, {quantityInStock});";
 
                 command = new SqlCommand(sql, this.connection);
 
@@ -572,7 +572,7 @@ namespace V.ShopWithInventory
                     }
 
                     // Новата стойност на цена за бройка
-                    sql += $"PriceForEach = {priceForEach.ToString("N2", CultureInfo.InvariantCulture)}";
+                    sql += $"PriceForEach = {priceForEach.ToString(CultureInfo.InvariantCulture)}";
                 }
 
                 // Ако количеството е по-малъко от 0 остава старото
