@@ -117,6 +117,59 @@ namespace V.ShopWithInventory
         }
 
         /// <summary>
+        /// Вземи клиент по ID
+        /// </summary>
+        /// <param name="clientID">ID-то на клиента, който се търси</param>
+        /// <returns>Клиента, ако не го намери връща <see cref="null"/></returns>
+        public Client GetClientByID(int clientID)
+        {
+            SqlCommand command;
+            SqlDataReader reader;
+            string sql = "";
+            Client client = null;
+
+            try
+            {
+                this.connection.Open();
+
+                sql = $"SELECT * FROM clients WHERE ID = '{clientID}';";
+
+                command = new SqlCommand(sql, this.connection);
+                reader = command.ExecuteReader();
+
+                // Четем само първия намерен клиент с това име
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    client = new Client
+                    {
+                        ID = int.Parse(reader.GetValue(0).ToString()),
+                        Name = reader.GetValue(1).ToString(),
+                        Balance = decimal.Parse(reader.GetValue(2).ToString())
+                    };
+
+                    reader.Close();
+                }
+
+                command.Dispose();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> GetClientByID)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+
+            return client;
+        }
+
+
+        /// <summary>
         /// Проверява дали клиента с подаденото име съществува
         /// </summary>
         /// <param name="name">Името на клиента, който се търси</param>
@@ -385,6 +438,60 @@ namespace V.ShopWithInventory
         }
 
         /// <summary>
+        /// Вземи продукт по ID
+        /// </summary>
+        /// <param name="productID">ID-то на продукт, който се търси</param>
+        /// <returns>Продукта, ако не го намери връща <see cref="null"/></returns>
+        public Product GetProductByID(int productID)
+        {
+            SqlCommand command;
+            SqlDataReader reader;
+            string sql = "";
+            Product product = null;
+
+            try
+            {
+                this.connection.Open();
+
+                sql = $"SELECT * FROM products WHERE ID = '{productID}';";
+
+                command = new SqlCommand(sql, this.connection);
+                reader = command.ExecuteReader();
+
+                // Четем само първия намерен продукт с това име
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    product = new Product
+                    {
+                        ID = int.Parse(reader.GetValue(0).ToString()),
+                        Name = reader.GetValue(1).ToString(),
+                        PriceForEach = decimal.Parse(reader.GetValue(2).ToString()),
+                        QuantityInStock = int.Parse(reader.GetValue(3).ToString())
+                    };
+
+                    reader.Close();
+                }
+
+                command.Dispose();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> GetProductByID)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+
+            return product;
+        }
+
+
+        /// <summary>
         /// Проверява дали продукта с подаденото име съществува
         /// </summary>
         /// <param name="name">Името на продукта, който се търси</param>
@@ -551,6 +658,177 @@ namespace V.ShopWithInventory
             }
 
             return products;
+        }
+
+        #endregion
+
+        #region Sales operations
+
+        public void MakeSale(int boughtProductID, int boughtQuantity, int clientBuyerID)
+        {
+            // Check if client does not exists
+            if (this.GetClientByID(clientBuyerID) == null)
+            {
+                throw new ArgumentNullException($"Client with ID: {clientBuyerID} was not found!");
+            }
+
+            // Get bought product
+            var product = this.GetProductByID(boughtProductID);
+
+            // Check if product does not exists
+            if (product == null)
+            {
+                throw new ArgumentNullException($"Product with ID: {boughtProductID} was not found!");
+            }
+
+            // Check if product has enough quantity
+            if (product.QuantityInStock < boughtQuantity)
+            {
+                throw new ArgumentOutOfRangeException($"Not enough quantity in stock for product with ID {boughtProductID}!");
+            }
+
+            SqlCommand command;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            string sql = "";
+
+            try
+            {
+                this.connection.Open();
+
+                sql = $"INSERT INTO sales (ClientID, BoughtProductID, BoughtQuantity) VALUES({clientBuyerID}, {boughtProductID}, {boughtQuantity});";
+
+                command = new SqlCommand(sql, this.connection);
+
+                adapter.InsertCommand = command;
+                adapter.InsertCommand.ExecuteNonQuery();
+                command.Dispose();
+
+                // Update quantity of product
+                this.UpdateProduct(product.ID, product.Name, product.PriceForEach, product.QuantityInStock - boughtQuantity);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> AddProduct)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+
+        #endregion
+
+        #region Reports
+
+        public decimal GetTurnover()
+        {
+            decimal turnover = 0;
+            SqlCommand command;
+            SqlDataReader reader;
+            string sql = "";
+
+            try
+            {
+                this.connection.Open();
+
+                sql = $"SELECT SUM((products.PriceForEach * sales.BoughtQuantity)) FROM sales INNER JOIN products ON sales.BoughtProductID = products.ID;";
+
+                command = new SqlCommand(sql, this.connection);
+                reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    turnover = decimal.Parse(reader.GetValue(0).ToString());
+                    reader.Close();
+                }
+
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> GetTurnover)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+
+            return turnover;
+        }
+
+        public int GetClientsCount()
+        {
+            int clientsCount = 0;
+            SqlCommand command;
+            SqlDataReader reader;
+            string sql = "";
+
+            try
+            {
+                this.connection.Open();
+
+                sql = $"SELECT COUNT(*) FROM clients;";
+
+                command = new SqlCommand(sql, this.connection);
+                reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    clientsCount = int.Parse(reader.GetValue(0).ToString());
+                    reader.Close();
+                }
+
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> GetClientsCount)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+
+            return clientsCount;
+        }
+
+        public int GetSalesCount()
+        {
+            int salesCount = 0;
+            SqlCommand command;
+            SqlDataReader reader;
+            string sql = "";
+
+            try
+            {
+                this.connection.Open();
+
+                sql = $"SELECT COUNT(*) FROM sales;";
+
+                command = new SqlCommand(sql, this.connection);
+                reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    salesCount = int.Parse(reader.GetValue(0).ToString());
+                    reader.Close();
+                }
+
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "(DBOperations -> GetSalesCount)");
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+
+            return salesCount;
         }
 
         #endregion
