@@ -23,7 +23,7 @@ namespace V.ShopWithInventory.UI
             this.InitializeComponent();
             this.dbo = new DBOperations();
             this.InitProductsDataGridView();
-            this.InitProductsDataGridView();
+            this.InitCartDataGridView();
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -47,14 +47,18 @@ namespace V.ShopWithInventory.UI
             this.productsBindingSource = new BindingSource();
             this.productsBindingSource.DataSource = typeof(Product);
             this.productsDataGridView.DataSource = productsBindingSource;
+            this.productsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.productsDataGridView.MultiSelect = false;
         }
 
         // Инициализация на таблицата количка
         private void InitCartDataGridView()
         {
-            this.productsBindingSource = new BindingSource();
-            this.productsBindingSource.DataSource = typeof(Product);
-            this.productsDataGridView.DataSource = productsBindingSource;
+            this.cartBindingSource = new BindingSource();
+            this.cartBindingSource.DataSource = typeof(Product);
+            this.cartDataGridView.DataSource = cartBindingSource;
+            this.cartDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.cartDataGridView.MultiSelect = false;
         }
 
         private void RefreshProductsTable()
@@ -72,6 +76,38 @@ namespace V.ShopWithInventory.UI
             {
                 this.productsBindingSource.Add(product);
             }
+        }
+
+        private void addToCartButton_Click(object sender, EventArgs e)
+        {
+            var quantityAdd = int.Parse(quantityAddTextBox.Text); // TODO: Провери дали е въведено кол.
+            var selectedProduct = (Product)this.productsBindingSource[this.productsDataGridView.CurrentCell.RowIndex];
+
+            if (selectedProduct == null)
+            {
+                MessageBox.Show("Моля, изберете продукт!");
+                return;
+            }
+
+            if (cartBindingSource.List.Count > 0 && (cartBindingSource.List as ICollection<Product>).Any(p => p.ID == selectedProduct.ID))
+            {
+                MessageBox.Show("Избраният продукт е вече добавен.");
+                return;
+            }
+
+
+            // TODO: Провери дали избраното количество е по-малко от наличното
+
+            var productToAdd = new Product { ID = selectedProduct.ID, Name = selectedProduct.Name, PriceForEach = selectedProduct.PriceForEach, QuantityInStock = quantityAdd };
+            this.cartBindingSource.Add(productToAdd);
+        }
+
+        private void payButton_Click(object sender, EventArgs e)
+        {
+            
+            // TODO: Провеери дали клиента има достатъчно пари
+
+
         }
     }
 }

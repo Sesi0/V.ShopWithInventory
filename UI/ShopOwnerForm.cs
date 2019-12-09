@@ -23,11 +23,17 @@ namespace V.ShopWithInventory.UI
             this.productsBindingSource = new BindingSource();
             this.productsBindingSource.DataSource = typeof(Product);
             this.productsDataGridView.DataSource = productsBindingSource;
+            this.productsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.productsDataGridView.MultiSelect = false;
         }
 
         private void ShopOwnerForm_Load(object sender, EventArgs e)
         {
             this.RefreshProducts();
+
+            turnOverLabel.Text = dbo.GetTurnover().ToString();
+            clientsLabel.Text = dbo.GetClientsCount().ToString();
+            salesLabel.Text = dbo.GetSalesCount().ToString();
         }
 
         // Обновяване на данните в таблицата

@@ -33,15 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productsDataGridView = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceForEachDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityInStockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.cartDataGridView = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceForEachDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityInStockDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.addToCartButton = new System.Windows.Forms.Button();
             this.quantityAddTextBox = new System.Windows.Forms.TextBox();
             this.quantityRemoveTextBox = new System.Windows.Forms.TextBox();
@@ -52,9 +44,7 @@
             this.totalLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // backButton
@@ -84,91 +74,23 @@
             // 
             this.productsDataGridView.AllowUserToAddRows = false;
             this.productsDataGridView.AllowUserToDeleteRows = false;
-            this.productsDataGridView.AutoGenerateColumns = false;
             this.productsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.productsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn,
-            this.priceForEachDataGridViewTextBoxColumn,
-            this.quantityInStockDataGridViewTextBoxColumn});
-            this.productsDataGridView.DataSource = this.productBindingSource1;
             this.productsDataGridView.Location = new System.Drawing.Point(3, 84);
             this.productsDataGridView.Name = "productsDataGridView";
             this.productsDataGridView.ReadOnly = true;
             this.productsDataGridView.Size = new System.Drawing.Size(488, 251);
             this.productsDataGridView.TabIndex = 2;
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Име";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // priceForEachDataGridViewTextBoxColumn
-            // 
-            this.priceForEachDataGridViewTextBoxColumn.DataPropertyName = "PriceForEach";
-            this.priceForEachDataGridViewTextBoxColumn.HeaderText = "Цена за бройка";
-            this.priceForEachDataGridViewTextBoxColumn.Name = "priceForEachDataGridViewTextBoxColumn";
-            this.priceForEachDataGridViewTextBoxColumn.ReadOnly = true;
-            this.priceForEachDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // quantityInStockDataGridViewTextBoxColumn
-            // 
-            this.quantityInStockDataGridViewTextBoxColumn.DataPropertyName = "QuantityInStock";
-            this.quantityInStockDataGridViewTextBoxColumn.HeaderText = "Налично количество";
-            this.quantityInStockDataGridViewTextBoxColumn.Name = "quantityInStockDataGridViewTextBoxColumn";
-            this.quantityInStockDataGridViewTextBoxColumn.ReadOnly = true;
-            this.quantityInStockDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // productBindingSource1
-            // 
-            this.productBindingSource1.DataSource = typeof(V.ShopWithInventory.Models.Product);
-            // 
             // cartDataGridView
             // 
             this.cartDataGridView.AllowUserToAddRows = false;
             this.cartDataGridView.AllowUserToDeleteRows = false;
-            this.cartDataGridView.AutoGenerateColumns = false;
             this.cartDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.cartDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn1,
-            this.priceForEachDataGridViewTextBoxColumn1,
-            this.quantityInStockDataGridViewTextBoxColumn1});
-            this.cartDataGridView.DataSource = this.productBindingSource2;
             this.cartDataGridView.Location = new System.Drawing.Point(697, 86);
             this.cartDataGridView.Name = "cartDataGridView";
             this.cartDataGridView.ReadOnly = true;
             this.cartDataGridView.Size = new System.Drawing.Size(493, 251);
             this.cartDataGridView.TabIndex = 3;
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Име";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn1.Width = 150;
-            // 
-            // priceForEachDataGridViewTextBoxColumn1
-            // 
-            this.priceForEachDataGridViewTextBoxColumn1.DataPropertyName = "PriceForEach";
-            this.priceForEachDataGridViewTextBoxColumn1.HeaderText = "Цена за бройка";
-            this.priceForEachDataGridViewTextBoxColumn1.Name = "priceForEachDataGridViewTextBoxColumn1";
-            this.priceForEachDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.priceForEachDataGridViewTextBoxColumn1.Width = 150;
-            // 
-            // quantityInStockDataGridViewTextBoxColumn1
-            // 
-            this.quantityInStockDataGridViewTextBoxColumn1.DataPropertyName = "QuantityInStock";
-            this.quantityInStockDataGridViewTextBoxColumn1.HeaderText = "Налично количество";
-            this.quantityInStockDataGridViewTextBoxColumn1.Name = "quantityInStockDataGridViewTextBoxColumn1";
-            this.quantityInStockDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.quantityInStockDataGridViewTextBoxColumn1.Width = 150;
-            // 
-            // productBindingSource2
-            // 
-            this.productBindingSource2.DataSource = typeof(V.ShopWithInventory.Models.Product);
             // 
             // addToCartButton
             // 
@@ -178,6 +100,7 @@
             this.addToCartButton.TabIndex = 4;
             this.addToCartButton.Text = "Добави в количката";
             this.addToCartButton.UseVisualStyleBackColor = true;
+            this.addToCartButton.Click += new System.EventHandler(this.addToCartButton_Click);
             // 
             // quantityAddTextBox
             // 
@@ -220,6 +143,7 @@
             this.payButton.TabIndex = 9;
             this.payButton.Text = "Плати";
             this.payButton.UseVisualStyleBackColor = true;
+            this.payButton.Click += new System.EventHandler(this.payButton_Click);
             // 
             // label3
             // 
@@ -260,9 +184,7 @@
             this.Load += new System.EventHandler(this.ClientShopForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,9 +196,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.DataGridView productsDataGridView;
-        private System.Windows.Forms.BindingSource productBindingSource1;
         private System.Windows.Forms.DataGridView cartDataGridView;
-        private System.Windows.Forms.BindingSource productBindingSource2;
         private System.Windows.Forms.Button addToCartButton;
         private System.Windows.Forms.TextBox quantityAddTextBox;
         private System.Windows.Forms.TextBox quantityRemoveTextBox;
