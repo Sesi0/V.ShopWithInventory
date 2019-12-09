@@ -756,7 +756,13 @@ namespace V.ShopWithInventory
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    turnover = decimal.Parse(reader.GetValue(0).ToString());
+
+                    string result = reader.GetValue(0).ToString();
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        turnover = decimal.Parse(result);
+                    }
+
                     reader.Close();
                 }
 
@@ -797,7 +803,13 @@ namespace V.ShopWithInventory
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    clientsCount = int.Parse(reader.GetValue(0).ToString());
+
+                    string result = reader.GetValue(0).ToString();
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        clientsCount = int.Parse(result);
+                    }
+
                     reader.Close();
                 }
 
@@ -838,7 +850,13 @@ namespace V.ShopWithInventory
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    salesCount = int.Parse(reader.GetValue(0).ToString());
+                    string result = reader.GetValue(0).ToString();
+
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        salesCount = int.Parse(result);
+                    }
+
                     reader.Close();
                 }
 
