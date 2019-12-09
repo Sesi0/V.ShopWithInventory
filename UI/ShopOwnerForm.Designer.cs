@@ -38,18 +38,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.productsDataGridView = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceForEachDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityInStockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editDataGridViewButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.deleteDataGridViewButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.addProductButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceForEachDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityInStockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.turnOverLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -129,13 +129,6 @@
             this.label6.TabIndex = 8;
             this.label6.Text = "Продажби:";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(91, 356);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(81, 20);
-            this.textBox1.TabIndex = 9;
-            // 
             // productsDataGridView
             // 
             this.productsDataGridView.AllowUserToAddRows = false;
@@ -156,6 +149,30 @@
             this.productsDataGridView.TabIndex = 10;
             this.productsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.productsDataGridView_CellContentClick);
             // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Име";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // priceForEachDataGridViewTextBoxColumn
+            // 
+            this.priceForEachDataGridViewTextBoxColumn.DataPropertyName = "PriceForEach";
+            this.priceForEachDataGridViewTextBoxColumn.HeaderText = "Цена за бройка";
+            this.priceForEachDataGridViewTextBoxColumn.Name = "priceForEachDataGridViewTextBoxColumn";
+            this.priceForEachDataGridViewTextBoxColumn.ReadOnly = true;
+            this.priceForEachDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // quantityInStockDataGridViewTextBoxColumn
+            // 
+            this.quantityInStockDataGridViewTextBoxColumn.DataPropertyName = "QuantityInStock";
+            this.quantityInStockDataGridViewTextBoxColumn.HeaderText = "Налично количество";
+            this.quantityInStockDataGridViewTextBoxColumn.Name = "quantityInStockDataGridViewTextBoxColumn";
+            this.quantityInStockDataGridViewTextBoxColumn.ReadOnly = true;
+            this.quantityInStockDataGridViewTextBoxColumn.Width = 150;
+            // 
             // editDataGridViewButtonColumn
             // 
             this.editDataGridViewButtonColumn.HeaderText = "Редакция";
@@ -171,6 +188,10 @@
             this.deleteDataGridViewButtonColumn.ReadOnly = true;
             this.deleteDataGridViewButtonColumn.Text = "Изтриване";
             this.deleteDataGridViewButtonColumn.UseColumnTextForButtonValue = true;
+            // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataSource = typeof(V.ShopWithInventory.Models.Product);
             // 
             // addProductButton
             // 
@@ -214,45 +235,26 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // nameDataGridViewTextBoxColumn
+            // turnOverLabel
             // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Име";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // priceForEachDataGridViewTextBoxColumn
-            // 
-            this.priceForEachDataGridViewTextBoxColumn.DataPropertyName = "PriceForEach";
-            this.priceForEachDataGridViewTextBoxColumn.HeaderText = "Цена за бройка";
-            this.priceForEachDataGridViewTextBoxColumn.Name = "priceForEachDataGridViewTextBoxColumn";
-            this.priceForEachDataGridViewTextBoxColumn.ReadOnly = true;
-            this.priceForEachDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // quantityInStockDataGridViewTextBoxColumn
-            // 
-            this.quantityInStockDataGridViewTextBoxColumn.DataPropertyName = "QuantityInStock";
-            this.quantityInStockDataGridViewTextBoxColumn.HeaderText = "Налично количество";
-            this.quantityInStockDataGridViewTextBoxColumn.Name = "quantityInStockDataGridViewTextBoxColumn";
-            this.quantityInStockDataGridViewTextBoxColumn.ReadOnly = true;
-            this.quantityInStockDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataSource = typeof(V.ShopWithInventory.Models.Product);
+            this.turnOverLabel.AutoSize = true;
+            this.turnOverLabel.Location = new System.Drawing.Point(77, 363);
+            this.turnOverLabel.Name = "turnOverLabel";
+            this.turnOverLabel.Size = new System.Drawing.Size(35, 13);
+            this.turnOverLabel.TabIndex = 15;
+            this.turnOverLabel.Text = "label7";
             // 
             // ShopOwnerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(769, 568);
+            this.Controls.Add(this.turnOverLabel);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.addProductButton);
             this.Controls.Add(this.productsDataGridView);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -283,7 +285,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridView productsDataGridView;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.Button addProductButton;
@@ -295,5 +296,6 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Label turnOverLabel;
     }
 }

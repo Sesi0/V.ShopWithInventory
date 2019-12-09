@@ -56,7 +56,7 @@
             // 
             // clientNameTextBox
             // 
-            this.clientNameTextBox.Location = new System.Drawing.Point(150, 56);
+            this.clientNameTextBox.Location = new System.Drawing.Point(150, 64);
             this.clientNameTextBox.Name = "clientNameTextBox";
             this.clientNameTextBox.Size = new System.Drawing.Size(100, 20);
             this.clientNameTextBox.TabIndex = 2;
@@ -70,7 +70,7 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(41, 145);
+            this.backButton.Location = new System.Drawing.Point(168, 149);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(82, 27);
             this.backButton.TabIndex = 4;
@@ -80,13 +80,13 @@
             // 
             // clientShopButton
             // 
-            this.clientShopButton.Location = new System.Drawing.Point(157, 145);
+            this.clientShopButton.Location = new System.Drawing.Point(41, 149);
             this.clientShopButton.Name = "clientShopButton";
             this.clientShopButton.Size = new System.Drawing.Size(93, 27);
             this.clientShopButton.TabIndex = 5;
             this.clientShopButton.Text = "Към магазина";
             this.clientShopButton.UseVisualStyleBackColor = true;
-            this.clientShopButton.Click += new System.EventHandler(this.clientShopButton_Click_1);
+            this.clientShopButton.Click += new System.EventHandler(this.clientShopButton_Click);
             // 
             // ClientEntryForm
             // 
