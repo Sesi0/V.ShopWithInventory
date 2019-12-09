@@ -666,8 +666,10 @@ namespace V.ShopWithInventory
 
         public void MakeSale(int boughtProductID, int boughtQuantity, int clientBuyerID)
         {
+            var client = this.GetClientByID(clientBuyerID);
+
             // Check if client does not exists
-            if (this.GetClientByID(clientBuyerID) == null)
+            if (client == null)
             {
                 throw new ArgumentNullException($"Client with ID: {clientBuyerID} was not found!");
             }
@@ -685,6 +687,14 @@ namespace V.ShopWithInventory
             if (product.QuantityInStock < boughtQuantity)
             {
                 throw new ArgumentOutOfRangeException($"Not enough quantity in stock for product with ID {boughtProductID}!");
+            }
+
+            var saleAmount = product.PriceForEach * boughtQuantity;
+
+            // Check if client has enough money
+            if (saleAmount > client.Balance)
+            {
+                throw new ArgumentOutOfRangeException($"Client with ID {clientBuyerID} does not have enough money for this sale!");
             }
 
             SqlCommand command;
@@ -705,6 +715,9 @@ namespace V.ShopWithInventory
 
                 // Update quantity of product
                 this.UpdateProduct(product.ID, product.Name, product.PriceForEach, product.QuantityInStock - boughtQuantity);
+
+                // Update balance of client
+                this.UpdateClient(client.ID, client.Name, client.Balance - saleAmount);
             }
             catch (Exception ex)
             {
@@ -720,6 +733,10 @@ namespace V.ShopWithInventory
 
         #region Reports
 
+        /// <summary>
+        /// Взима оборота на магазина
+        /// </summary>
+        /// <returns>оборота на магазина</returns>
         public decimal GetTurnover()
         {
             decimal turnover = 0;
@@ -757,6 +774,10 @@ namespace V.ShopWithInventory
             return turnover;
         }
 
+        /// <summary>
+        /// Взима бройката клиенти на магазина
+        /// </summary>
+        /// <returns>брой клиенти</returns>
         public int GetClientsCount()
         {
             int clientsCount = 0;
@@ -794,6 +815,10 @@ namespace V.ShopWithInventory
             return clientsCount;
         }
 
+        /// <summary>
+        /// Взима броя продажби на магазина
+        /// </summary>
+        /// <returns>брой продажби</returns>
         public int GetSalesCount()
         {
             int salesCount = 0;
