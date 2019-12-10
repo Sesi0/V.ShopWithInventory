@@ -31,20 +31,18 @@
             this.components = new System.ComponentModel.Container();
             this.backButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productsDataGridView = new System.Windows.Forms.DataGridView();
             this.cartDataGridView = new System.Windows.Forms.DataGridView();
             this.addToCartButton = new System.Windows.Forms.Button();
             this.quantityAddTextBox = new System.Windows.Forms.TextBox();
-            this.quantityRemoveTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.removeFromCartButton = new System.Windows.Forms.Button();
             this.payButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.totalLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // backButton
@@ -65,10 +63,6 @@
             this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Количество:";
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataSource = typeof(V.ShopWithInventory.Models.Product);
             // 
             // productsDataGridView
             // 
@@ -109,22 +103,6 @@
             this.quantityAddTextBox.Size = new System.Drawing.Size(100, 20);
             this.quantityAddTextBox.TabIndex = 5;
             // 
-            // quantityRemoveTextBox
-            // 
-            this.quantityRemoveTextBox.Location = new System.Drawing.Point(581, 294);
-            this.quantityRemoveTextBox.Name = "quantityRemoveTextBox";
-            this.quantityRemoveTextBox.Size = new System.Drawing.Size(100, 20);
-            this.quantityRemoveTextBox.TabIndex = 6;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(506, 294);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Количество:";
-            // 
             // removeFromCartButton
             // 
             this.removeFromCartButton.Location = new System.Drawing.Point(532, 244);
@@ -162,6 +140,10 @@
             this.totalLabel.Size = new System.Drawing.Size(0, 13);
             this.totalLabel.TabIndex = 11;
             // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataSource = typeof(V.ShopWithInventory.Models.Product);
+            // 
             // ClientShopForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,8 +153,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.payButton);
             this.Controls.Add(this.removeFromCartButton);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.quantityRemoveTextBox);
             this.Controls.Add(this.quantityAddTextBox);
             this.Controls.Add(this.addToCartButton);
             this.Controls.Add(this.cartDataGridView);
@@ -182,9 +162,9 @@
             this.Name = "ClientShopForm";
             this.Text = "Магазин";
             this.Load += new System.EventHandler(this.ClientShopForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,8 +179,6 @@
         private System.Windows.Forms.DataGridView cartDataGridView;
         private System.Windows.Forms.Button addToCartButton;
         private System.Windows.Forms.TextBox quantityAddTextBox;
-        private System.Windows.Forms.TextBox quantityRemoveTextBox;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button removeFromCartButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceForEachDataGridViewTextBoxColumn;

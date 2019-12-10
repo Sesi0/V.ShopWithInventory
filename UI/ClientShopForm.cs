@@ -31,11 +31,6 @@ namespace V.ShopWithInventory.UI
             this.Close();
         }
 
-        private void removeFromCartButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ClientShopForm_Load(object sender, EventArgs e)
         {
             this.RefreshProductsTable();
@@ -80,34 +75,82 @@ namespace V.ShopWithInventory.UI
 
         private void addToCartButton_Click(object sender, EventArgs e)
         {
-            var quantityAdd = int.Parse(quantityAddTextBox.Text); // TODO: Провери дали е въведено кол.
-            var selectedProduct = (Product)this.productsBindingSource[this.productsDataGridView.CurrentCell.RowIndex];
-
-            if (selectedProduct == null)
+            var quantityAdd=0;
+            //Проверка дали е въведено количество
+            try
             {
-                MessageBox.Show("Моля, изберете продукт!");
-                return;
-            }
+                if (quantityAddTextBox == null)
+                {
+                    MessageBox.Show("Моля, въведете количество!");
+                }
+                else
+                {
+                    quantityAdd = int.Parse(quantityAddTextBox.Text);
+                    
+                    var selectedProduct = (Product)this.productsBindingSource[this.productsDataGridView.CurrentCell.RowIndex];
 
-            if (cartBindingSource.List.Count > 0 && (cartBindingSource.List as ICollection<Product>).Any(p => p.ID == selectedProduct.ID))
+
+
+                    if (selectedProduct == null)
+                    {
+                        MessageBox.Show("Моля, изберете продукт!");
+                        return;
+                    }
+
+                    if (cartBindingSource.List.Count > 0 && (cartBindingSource.List as ICollection<Product>).Any(p => p.ID == selectedProduct.ID))
+                    {
+                        MessageBox.Show("Избраният продукт е вече добавен.");
+                        return;
+                    }
+
+
+                    //Проверка дали избраното количество е по-малко от наличното          
+                    var productToAdd = new Product { ID = selectedProduct.ID, Name = selectedProduct.Name, PriceForEach = selectedProduct.PriceForEach, QuantityInStock = quantityAdd };                  
+                    if(quantityAdd > dbo.GetProductByID(productToAdd.ID).QuantityInStock)
+                    {
+                       MessageBox.Show("Избраните продукти превишават бройката на наличните в магазина. Моля изберете по-малко количество. ");
+                    }
+                    else
+                    {
+                        this.cartBindingSource.Add(productToAdd);
+                    }
+                    
+                }
+                
+            }
+            catch (FormatException)
             {
-                MessageBox.Show("Избраният продукт е вече добавен.");
-                return;
+                MessageBox.Show("Моля, въведете стойност!");
             }
+        }
 
 
-            // TODO: Провери дали избраното количество е по-малко от наличното
-
-            var productToAdd = new Product { ID = selectedProduct.ID, Name = selectedProduct.Name, PriceForEach = selectedProduct.PriceForEach, QuantityInStock = quantityAdd };
-            this.cartBindingSource.Add(productToAdd);
+        private void removeFromCartButton_Click(object sender, EventArgs e)
+        {
+            //Изтриване на избран от количката продукт по ред
+            try
+            {
+                var a = cartDataGridView.SelectedRows[0];
+                cartDataGridView.Rows.RemoveAt(a.Index);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Моля, изберете ред за триене.");
+            }
         }
 
         private void payButton_Click(object sender, EventArgs e)
         {
-            
+           /* var clientBalance = dbo.GetClientByID();
+            if()
+            {
+
+            }*/
             // TODO: Провеери дали клиента има достатъчно пари
 
 
         }
+
+        
     }
 }
