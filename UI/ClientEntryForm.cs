@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using V.ShopWithInventory.Models;
 
 namespace V.ShopWithInventory.UI
 {
@@ -34,15 +35,20 @@ namespace V.ShopWithInventory.UI
             }
 
             DBOperations dbo = new DBOperations();
+            Client client = null;
             if (dbo.CheckIfClientExists(clientName))
             {
-                var client = dbo.GetClientByName(clientName);
+                client = dbo.GetClientByName(clientName);
                 MessageBox.Show($"Добре дошъл, {client.Name} вашият настоящ баланс е {client.Balance}.");
             }
             else
             {
                 dbo.AddClient(clientName, decimal.Parse(clientBalance));
+                client = dbo.GetClientByName(clientName);
             }
+
+            // Запазваме клиента в статична променлива
+            SessionHelper.CurrentLoggedClient = client;
 
             ClientShopForm clientShopForm = new ClientShopForm();
             clientShopForm.Show();

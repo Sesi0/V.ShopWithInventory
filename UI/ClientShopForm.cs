@@ -28,6 +28,8 @@ namespace V.ShopWithInventory.UI
 
         private void backButton_Click(object sender, EventArgs e)
         {
+            // Изчистваме клиента
+            SessionHelper.CurrentLoggedClient = null;
             this.Close();
         }
 
