@@ -294,8 +294,6 @@ namespace V.ShopWithInventory
 
                 if (reader.HasRows)
                 {
-                    reader.Read();
-
                     clients = new List<Client>();
 
                     while (reader.Read())
