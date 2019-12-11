@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using V.ShopWithInventory.Models;
 
@@ -574,7 +575,7 @@ namespace V.ShopWithInventory
                 }
 
                 // Ако количеството е по-малъко от 0 остава старото
-                if (quantityInStock > 0)
+                if (quantityInStock >= 0)
                 {
                     // Ако се променя и името или количеството е по-голямо от 0 се слага запетая щом ще се променя и бройката
                     if (!string.IsNullOrEmpty(name) || priceForEach > 0)
@@ -656,6 +657,11 @@ namespace V.ShopWithInventory
             }
 
             return products;
+        }
+
+        public List<Product> GetProductsForSale()
+        {
+            return this.GetProducts().Where(p => p.QuantityInStock > 0).ToList();
         }
 
         #endregion

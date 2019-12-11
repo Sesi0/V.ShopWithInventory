@@ -69,7 +69,7 @@ namespace V.ShopWithInventory.UI
 
         private void RefreshProductsTable()
         {
-            var products = this.dbo.GetProducts();
+            var products = this.dbo.GetProductsForSale();
 
             if (products == null)
             {
