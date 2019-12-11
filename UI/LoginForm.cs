@@ -25,19 +25,19 @@ namespace V.ShopWithInventory.UI
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutInfoForm aboutinfoForm = new AboutInfoForm();
-            aboutinfoForm.Show();
+            aboutinfoForm.ShowDialog();
         }
 
         private void clientLoginButton_Click(object sender, EventArgs e)
         {
             ClientEntryForm clientEntryForm = new ClientEntryForm();
-            clientEntryForm.Show();
+            clientEntryForm.ShowDialog();
         }
 
         private void ownerLoginButton_Click(object sender, EventArgs e)
         {
             ShopOwnerForm shopOwnerForm = new ShopOwnerForm();
-            shopOwnerForm.Show();
+            shopOwnerForm.ShowDialog();
         }
     }
 }

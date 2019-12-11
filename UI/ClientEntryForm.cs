@@ -26,11 +26,11 @@ namespace V.ShopWithInventory.UI
         private void clientShopButton_Click(object sender, EventArgs e)
         {
             var clientName = clientNameTextBox.Text;
-            var clientBalance = clientMoneyTextBox.Text;
+            decimal clientBalance = 0;
 
-            if (string.IsNullOrEmpty(clientName) || string.IsNullOrEmpty(clientBalance))
+            if (string.IsNullOrEmpty(clientName))
             {
-                MessageBox.Show("Не сте въвели име на клиент или баланс на клиент!");
+                MessageBox.Show("Не сте въвели име на клиент!");
                 return;
             }
 
@@ -43,15 +43,41 @@ namespace V.ShopWithInventory.UI
             }
             else
             {
-                dbo.AddClient(clientName, decimal.Parse(clientBalance));
+                if (string.IsNullOrEmpty(clientMoneyTextBox.Text))
+                {
+                    MessageBox.Show($"Клиент с име {clientName} не е регистриран в системата. Моля въведете баланс и опитайте отново!");
+                    clientMoneyTextBox.Visible = true;
+                    balanceLabel.Visible = true;
+                    return;
+                }
+
+                try
+                {
+                    clientBalance = decimal.Parse(clientMoneyTextBox.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Невалидни данни за баланс!");
+                    return;
+                }
+
+                if(clientBalance <= 0)
+                {
+                    MessageBox.Show("Моля, въведете полoжително число!");
+                }
+
+                dbo.AddClient(clientName, clientBalance);
                 client = dbo.GetClientByName(clientName);
+                clientMoneyTextBox.Visible = false;
+                balanceLabel.Visible = false;
+                clientMoneyTextBox.Clear();
             }
 
             // Запазваме клиента в статична променлива
             SessionHelper.CurrentLoggedClient = client;
 
             ClientShopForm clientShopForm = new ClientShopForm();
-            clientShopForm.Show();
+            clientShopForm.ShowDialog();
         }
     }
 }

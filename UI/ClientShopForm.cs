@@ -178,6 +178,8 @@ namespace V.ShopWithInventory.UI
                 dbo.MakeSale(product.ID, product.QuantityInStock, SessionHelper.CurrentLoggedClient.ID);
             }
 
+            cartBindingSource.Clear();
+            this.RefreshTotalAmount();
             SessionHelper.RefreshCurrentLoggedClient();
             this.LoadClientInfo();
             this.RefreshProductsTable();

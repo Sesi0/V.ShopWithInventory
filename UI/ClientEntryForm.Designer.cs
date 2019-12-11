@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.balanceLabel = new System.Windows.Forms.Label();
             this.clientNameTextBox = new System.Windows.Forms.TextBox();
             this.clientMoneyTextBox = new System.Windows.Forms.TextBox();
             this.backButton = new System.Windows.Forms.Button();
@@ -45,14 +45,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Име на клиент:";
             // 
-            // label2
+            // balanceLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 97);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Баланс:";
+            this.balanceLabel.AutoSize = true;
+            this.balanceLabel.Location = new System.Drawing.Point(38, 97);
+            this.balanceLabel.Name = "balanceLabel";
+            this.balanceLabel.Size = new System.Drawing.Size(47, 13);
+            this.balanceLabel.TabIndex = 1;
+            this.balanceLabel.Text = "Баланс:";
+            this.balanceLabel.Visible = false;
             // 
             // clientNameTextBox
             // 
@@ -67,6 +68,7 @@
             this.clientMoneyTextBox.Name = "clientMoneyTextBox";
             this.clientMoneyTextBox.Size = new System.Drawing.Size(100, 20);
             this.clientMoneyTextBox.TabIndex = 3;
+            this.clientMoneyTextBox.Visible = false;
             // 
             // backButton
             // 
@@ -97,7 +99,7 @@
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.clientMoneyTextBox);
             this.Controls.Add(this.clientNameTextBox);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.balanceLabel);
             this.Controls.Add(this.label1);
             this.Name = "ClientEntryForm";
             this.Text = "Клиентски данни за вход";
@@ -109,7 +111,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label balanceLabel;
         private System.Windows.Forms.TextBox clientNameTextBox;
         private System.Windows.Forms.TextBox clientMoneyTextBox;
         private System.Windows.Forms.Button backButton;

@@ -131,12 +131,6 @@ namespace V.ShopWithInventory.UI
             int quantity = -1;
             string name = productNameTextBox.Text;
 
-            if (dbo.CheckIfProductExists(name))
-            {
-                MessageBox.Show("Продукт с това име вече съществува!");
-                return;
-            }
-
             // Проверка за коректни данни за цена
             try
             {
