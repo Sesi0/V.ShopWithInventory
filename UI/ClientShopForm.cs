@@ -18,6 +18,8 @@ namespace V.ShopWithInventory.UI
         private BindingSource productsBindingSource;
         private BindingSource cartBindingSource;
 
+        private decimal totalAmount;
+
         public ClientShopForm()
         {
             this.InitializeComponent();
@@ -36,6 +38,13 @@ namespace V.ShopWithInventory.UI
         private void ClientShopForm_Load(object sender, EventArgs e)
         {
             this.RefreshProductsTable();
+            this.LoadClientInfo();
+        }
+
+        private void LoadClientInfo()
+        {
+            clientNameLabel.Text = SessionHelper.CurrentLoggedClient.Name;
+            clientBalanceLabel.Text = SessionHelper.CurrentLoggedClient.Balance.ToString();
         }
 
         // Инициализация на таблицата с продукти
@@ -77,63 +86,72 @@ namespace V.ShopWithInventory.UI
 
         private void addToCartButton_Click(object sender, EventArgs e)
         {
-            var quantityAdd=0;
-            //Проверка дали е въведено количество
+            int quantityAdd = 0;
+
             try
             {
-                if (quantityAddTextBox == null)
-                {
-                    MessageBox.Show("Моля, въведете количество!");
-                }
-                else
-                {
-                    quantityAdd = int.Parse(quantityAddTextBox.Text);
-                    
-                    var selectedProduct = (Product)this.productsBindingSource[this.productsDataGridView.CurrentCell.RowIndex];
-
-
-
-                    if (selectedProduct == null)
-                    {
-                        MessageBox.Show("Моля, изберете продукт!");
-                        return;
-                    }
-
-                    if (cartBindingSource.List.Count > 0 && (cartBindingSource.List as ICollection<Product>).Any(p => p.ID == selectedProduct.ID))
-                    {
-                        MessageBox.Show("Избраният продукт е вече добавен.");
-                        return;
-                    }
-
-
-                    //Проверка дали избраното количество е по-малко от наличното          
-                    var productToAdd = new Product { ID = selectedProduct.ID, Name = selectedProduct.Name, PriceForEach = selectedProduct.PriceForEach, QuantityInStock = quantityAdd };                  
-                    if(quantityAdd > dbo.GetProductByID(productToAdd.ID).QuantityInStock)
-                    {
-                       MessageBox.Show("Избраните продукти превишават бройката на наличните в магазина. Моля изберете по-малко количество. ");
-                    }
-                    else
-                    {
-                        this.cartBindingSource.Add(productToAdd);
-                    }
-                    
-                }
-                
+                quantityAdd = int.Parse(quantityAddTextBox.Text);
             }
-            catch (FormatException)
+            catch (Exception)
             {
-                MessageBox.Show("Моля, въведете стойност!");
+                MessageBox.Show("Невалидно количество, моля проверете и опитайте пак!");
+                return;
             }
+
+            var selectedProduct = (Product)this.productsBindingSource[this.productsDataGridView.CurrentCell.RowIndex];
+
+            if (selectedProduct == null)
+            {
+                MessageBox.Show("Моля, изберете продукт!");
+                return;
+            }
+
+            if (cartBindingSource.List.Count > 0 && (cartBindingSource.List as ICollection<Product>).Any(p => p.ID == selectedProduct.ID))
+            {
+                MessageBox.Show("Избраният продукт е вече добавен.");
+                return;
+            }
+
+            if (quantityAdd <= 0)
+            {
+                MessageBox.Show("Въведете положително число.");
+                return;
+            }
+
+            //Проверка дали избраното количество е по-малко от наличното          
+            var productToAdd = new Product { ID = selectedProduct.ID, Name = selectedProduct.Name, PriceForEach = selectedProduct.PriceForEach, QuantityInStock = quantityAdd };
+            if (quantityAdd > dbo.GetProductByID(productToAdd.ID).QuantityInStock)
+            {
+                MessageBox.Show("Избраните продукти превишават бройката на наличните в магазина. Моля изберете по-малко количество. ");
+                return;
+            }
+
+            this.cartBindingSource.Add(productToAdd);
+            this.RefreshTotalAmount();
         }
 
+        private void RefreshTotalAmount()
+        {
+            if (cartBindingSource.List.Count > 0)
+            {
+                this.totalAmount = (cartBindingSource.List as ICollection<Product>).Sum(p => p.PriceForEach * p.QuantityInStock);
+            }
+            else
+            {
+                totalAmount = 0;
+            }
+
+            totalLabel.Text = totalAmount.ToString();
+        }
 
         private void removeFromCartButton_Click(object sender, EventArgs e)
         {
             //Изтриване на избран от количката продукт по ред
             try
             {
-                var a = cartDataGridView.SelectedRows[0];
-                cartDataGridView.Rows.RemoveAt(a.Index);
+                var deleteSelectedRowbyItem = cartDataGridView.SelectedRows[0];
+                cartDataGridView.Rows.RemoveAt(deleteSelectedRowbyItem.Index);
+                this.RefreshTotalAmount();
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -143,16 +161,26 @@ namespace V.ShopWithInventory.UI
 
         private void payButton_Click(object sender, EventArgs e)
         {
-           /* var clientBalance = dbo.GetClientByID();
-            if()
+            if (cartBindingSource.List.Count <= 0)
             {
+                MessageBox.Show("Количката е празна.");
+                return;
+            }
 
-            }*/
-            // TODO: Провеери дали клиента има достатъчно пари
+            if (totalAmount > SessionHelper.CurrentLoggedClient.Balance)
+            {
+                MessageBox.Show("Нямате достатъчно пари. Моля, изберете по-малко продукти.");
+                return;
+            }
 
+            foreach (var product in cartBindingSource.List as ICollection<Product>)
+            {
+                dbo.MakeSale(product.ID, product.QuantityInStock, SessionHelper.CurrentLoggedClient.ID);
+            }
 
+            SessionHelper.RefreshCurrentLoggedClient();
+            this.LoadClientInfo();
+            this.RefreshProductsTable();
         }
-
-        
     }
 }

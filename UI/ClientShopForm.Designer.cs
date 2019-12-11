@@ -40,6 +40,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.totalLabel = new System.Windows.Forms.Label();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.clientNameLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.clientBalanceLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cartDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
@@ -144,11 +148,53 @@
             // 
             this.productBindingSource.DataSource = typeof(V.ShopWithInventory.Models.Product);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 20);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Клиент:";
+            // 
+            // clientNameLabel
+            // 
+            this.clientNameLabel.AutoSize = true;
+            this.clientNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clientNameLabel.Location = new System.Drawing.Point(77, 32);
+            this.clientNameLabel.Name = "clientNameLabel";
+            this.clientNameLabel.Size = new System.Drawing.Size(0, 20);
+            this.clientNameLabel.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(693, 32);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 20);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Баланс:";
+            // 
+            // clientBalanceLabel
+            // 
+            this.clientBalanceLabel.AutoSize = true;
+            this.clientBalanceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clientBalanceLabel.Location = new System.Drawing.Point(760, 32);
+            this.clientBalanceLabel.Name = "clientBalanceLabel";
+            this.clientBalanceLabel.Size = new System.Drawing.Size(0, 20);
+            this.clientBalanceLabel.TabIndex = 15;
+            // 
             // ClientShopForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 442);
+            this.Controls.Add(this.clientBalanceLabel);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.clientNameLabel);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.payButton);
@@ -189,5 +235,9 @@
         private System.Windows.Forms.Button payButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label totalLabel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label clientNameLabel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label clientBalanceLabel;
     }
 }
