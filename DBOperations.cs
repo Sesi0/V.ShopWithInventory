@@ -236,7 +236,7 @@ namespace V.ShopWithInventory
                 if (!string.IsNullOrEmpty(name))
                 {
                     // Новата стойност на името
-                    sql += $"Name = {name}";
+                    sql += $"Name = '{name}'";
                 }
 
                 // Ако баланса е по-малък от 0 остава старото
@@ -710,6 +710,7 @@ namespace V.ShopWithInventory
                 adapter.InsertCommand = command;
                 adapter.InsertCommand.ExecuteNonQuery();
                 command.Dispose();
+                this.connection.Close();
 
                 // Update quantity of product
                 this.UpdateProduct(product.ID, product.Name, product.PriceForEach, product.QuantityInStock - boughtQuantity);
@@ -720,10 +721,6 @@ namespace V.ShopWithInventory
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "(DBOperations -> MakeSale)");
-            }
-            finally
-            {
-                this.connection.Close();
             }
         }
 
